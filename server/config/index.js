@@ -14,31 +14,29 @@ module.exports = {
 
     // "alternative","danger","neutral","primary","secondary","success","warning"]
     tags: {
-      done: { label: 'Done', color: 'success' },
-      inProgress: { label: 'In progress', color: 'primary' },
-      error: { label: 'Error', color: 'danger' },
+      None: { color: 'neutral' },
+      Done: { color: 'success' },
+      'In progress': { color: 'primary' },
+      Error: { color: 'danger' },
     },
+    defaultTag: 'None',
   },
   validator(config) {
-    // colors
-    // TODO
-    // if (!config.colors) {
-    //   throw new ValidationError('You must define colors prop');
-    // }
-
     // tags
-    if (!config.tags) {
-      throw new ValidationError('You must define tags prop');
+    if (!config.tags || !config.defaultTag) {
+      throw new ValidationError(
+        'You must define tags and defaultTag properties',
+      );
     }
     Object.entries(config.tags).forEach(([tagKey, tagProperties]) => {
-      if (
-        !tagProperties.hasOwnProperty('label') ||
-        !tagProperties.hasOwnProperty('color')
-      ) {
+      if (!Object.prototype.hasOwnProperty.call(tagProperties, 'color')) {
         throw new ValidationError(
-          `Missing properties on tags.${tagKey}: Define label and color`,
+          `Missing properties on tags.${tagKey}: Define color`,
         );
       }
     });
+    if (!Object.keys(config.tags).includes(config.defaultTag)) {
+      throw new ValidationError('defaultTag is not defined in tags');
+    }
   },
 };

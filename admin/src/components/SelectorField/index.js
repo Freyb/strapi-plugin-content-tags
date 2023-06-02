@@ -12,7 +12,6 @@ import {
 } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 import useConfig from '../../hooks/useConfig';
-import { emptyTagProperties } from '../../constants';
 
 const SelectorField = ({
   value,
@@ -53,21 +52,20 @@ const SelectorField = ({
             aria-label={formatMessage(intlLabel)}
             aria-disabled={disabled}
             disabled={disabled}
-            value={value}
-            onChange={(newCountry) => {
+            value={value || config.defaultTag}
+            onChange={(newValue) => {
               onChange({
                 target: {
                   name,
-                  value: newCountry,
+                  value: newValue,
                   type: attribute.type,
                 },
               });
             }}
           >
-            <Option value="">{emptyTagProperties.label}</Option>
-            {Object.entries(config.tags).map(([tagKey, tagProperties]) => (
+            {Object.keys(config.tags).map((tagKey) => (
               <Option key={tagKey} value={tagKey}>
-                {tagProperties.label}
+                {tagKey}
               </Option>
             ))}
           </Select>
