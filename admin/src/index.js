@@ -4,6 +4,7 @@ import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import SelectorIcon from './components/SelectorIcon';
 import getTrad from './utils/getTrad';
+import addColumnToTableHook from './hooks/contentManagerHooks/addColumnToTable';
 
 const name = pluginPkg.strapi.name;
 
@@ -59,7 +60,12 @@ export default {
     });
   },
 
-  bootstrap(_app) {},
+  bootstrap(app) {
+    app.registerHook(
+      'Admin/CM/pages/ListView/inject-column-in-table',
+      addColumnToTableHook,
+    );
+  },
   async registerTrads({ locales }) {
     const importedTrads = await Promise.all(
       locales.map((locale) => {

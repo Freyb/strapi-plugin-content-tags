@@ -12,6 +12,7 @@ import {
 } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 import useConfig from '../../hooks/useConfig';
+import { emptyTagProperties } from '../../constants';
 
 const SelectorField = ({
   value,
@@ -63,7 +64,7 @@ const SelectorField = ({
               });
             }}
           >
-            <Option value="">None</Option>
+            <Option value="">{emptyTagProperties.label}</Option>
             {Object.entries(config.tags).map(([tagKey, tagProperties]) => (
               <Option key={tagKey} value={tagKey}>
                 {tagProperties.label}
