@@ -1,5 +1,7 @@
-import pluginPkg from '../../package.json';
+const pluginPkg = require('../../package.json');
 
-const pluginId = pluginPkg.name.replace(/^(@[^-,.][\w,-]+\/|strapi-)plugin-/i, '');
+const pluginName = pluginPkg.name;
+// eslint-disable-next-line prettier/prettier
+const pluginId = pluginName.replace(/^(@[^-,.][\w,-]+\/|strapi-)plugin-/i, '');
 
-export default pluginId;
+module.exports = pluginId;

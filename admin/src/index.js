@@ -2,31 +2,54 @@ import { prefixPluginTranslations } from '@strapi/helper-plugin';
 import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
-import PluginIcon from './components/PluginIcon';
+import SelectorIcon from './components/SelectorIcon';
+import getTrad from './utils/getTrad';
 
 const name = pluginPkg.strapi.name;
 
 export default {
   register(app) {
-    app.addMenuLink({
-      to: `/plugins/${pluginId}`,
-      icon: PluginIcon,
+    app.customFields.register({
+      name: 'content-tags',
+      pluginId,
+      type: 'text',
+      icon: SelectorIcon,
       intlLabel: {
-        id: `${pluginId}.plugin.name`,
-        defaultMessage: name,
+        id: getTrad('customField.label'),
+        defaultMessage: 'Tags',
       },
-      Component: async () => {
-        const component = await import(/* webpackChunkName: "[request]" */ './pages/App');
-
-        return component;
+      intlDescription: {
+        id: getTrad('customField.description'),
+        defaultMessage: 'Assign tags to entities',
       },
-      permissions: [
-        // Uncomment to set the permissions of the plugin here
-        // {
-        //   action: '', // the action name should be plugin::plugin-name.actionType
-        //   subject: null,
-        // },
-      ],
+      components: {
+        Input: async () => import('./components/SelectorField'),
+      },
+      options: {
+        advanced: [
+          {
+            sectionTitle: {
+              id: 'global.settings',
+              defaultMessage: 'Settings',
+            },
+            items: [
+              {
+                name: 'required',
+                type: 'checkbox',
+                intlLabel: {
+                  id: 'form.attribute.item.requiredField',
+                  defaultMessage: 'Required field',
+                },
+                description: {
+                  id: 'form.attribute.item.requiredField.description',
+                  defaultMessage:
+                    "You won't be able to create an entry if this field is empty",
+                },
+              },
+            ],
+          },
+        ],
+      },
     });
     app.registerPlugin({
       id: pluginId,
@@ -36,7 +59,7 @@ export default {
     });
   },
 
-  bootstrap(app) {},
+  bootstrap(_app) {},
   async registerTrads({ locales }) {
     const importedTrads = await Promise.all(
       locales.map((locale) => {
@@ -55,7 +78,7 @@ export default {
               locale,
             };
           });
-      })
+      }),
     );
 
     return Promise.resolve(importedTrads);

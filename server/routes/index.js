@@ -1,10 +1,10 @@
 module.exports = [
   {
     method: 'GET',
-    path: '/',
-    handler: 'myController.index',
+    path: '/config',
+    handler: 'configController.getConfig',
     config: {
-      policies: [],
+      policies: ['admin::isAuthenticatedAdmin'],
     },
   },
 ];

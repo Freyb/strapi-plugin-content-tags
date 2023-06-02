@@ -1,1 +1,4 @@
-{}
+{
+  "customField.label": "Tags",
+  "customField.description": "Assign tags to entities"
+}
