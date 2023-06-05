@@ -1,9 +1,8 @@
 import React from 'react';
 import get from 'lodash/get';
 import styled from 'styled-components';
-import { Status, Typography, Loader } from '@strapi/design-system';
+import { Status, Typography } from '@strapi/design-system';
 import pluginId from '../../pluginId';
-import useConfig from '../useConfig';
 
 const StyledStatus = styled(Status)`
   width: min-content;
@@ -28,15 +27,13 @@ const addColumnToTableHook = ({ displayedHeaders, layout }) => {
           searchable: true,
           sortable: true,
         },
-        name: 'content-tags',
+        name: pluginOptions.fieldName,
         cellFormatter(cellData) {
-          const { config, isLoading: configIsLoading } = useConfig();
-
-          if (configIsLoading) return <Loader small>Loading content...</Loader>;
-
-          const tagKey = cellData[pluginOptions.fieldName] ?? config.defaultTag;
+          const tagKey =
+            cellData[pluginOptions.fieldName] ?? pluginOptions.defaultTag;
           const tagProperties =
-            config.tags[tagKey] || config.tags[config.defaultTag];
+            pluginOptions.tags[tagKey] ||
+            pluginOptions.tags[pluginOptions.defaultTag];
           const tagColor = tagProperties.color;
 
           return (

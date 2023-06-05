@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useCMEditViewDataManager } from '@strapi/helper-plugin';
+import { get } from 'lodash';
 import {
   Field,
   FieldLabel,
@@ -7,11 +9,11 @@ import {
   FieldHint,
   Select,
   Option,
-  Loader,
   Stack,
+  Typography,
 } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
-import useConfig from '../../hooks/useConfig';
+import pluginId from '../../pluginId';
 
 const SelectorField = ({
   value,
@@ -26,12 +28,13 @@ const SelectorField = ({
   disabled,
   error,
 }) => {
-  // const { options = {} } = attribute;
-  const { config, isLoading: configIsLoading } = useConfig();
-
   const { formatMessage } = useIntl();
-
-  console.log('Tags', config);
+  const { allLayoutData } = useCMEditViewDataManager();
+  const pluginOptions = get(
+    allLayoutData,
+    `contentType.pluginOptions.${pluginId}`,
+  );
+  const tagsEnabled = !!pluginOptions;
 
   return (
     <Field
@@ -44,15 +47,17 @@ const SelectorField = ({
       <Stack spacing={1}>
         <FieldLabel action={labelAction}>{formatMessage(intlLabel)}</FieldLabel>
 
-        {configIsLoading ? (
-          <Loader small>Loading content...</Loader>
+        {!tagsEnabled ? (
+          <Typography fontWeight="bold">
+            Invalid scheme configuration
+          </Typography>
         ) : (
           <Select
             placeholder={placeholder && formatMessage(placeholder)}
             aria-label={formatMessage(intlLabel)}
             aria-disabled={disabled}
             disabled={disabled}
-            value={value || config.defaultTag}
+            value={value || pluginOptions.defaultTag}
             onChange={(newValue) => {
               onChange({
                 target: {
@@ -63,7 +68,7 @@ const SelectorField = ({
               });
             }}
           >
-            {Object.keys(config.tags).map((tagKey) => (
+            {Object.keys(pluginOptions.tags).map((tagKey) => (
               <Option key={tagKey} value={tagKey}>
                 {tagKey}
               </Option>
