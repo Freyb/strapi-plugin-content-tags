@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "A Strapi plugin that allows you to add custom tags to your content.",
   "strapi": {
-    "name": "strapi-plugin-content-tags",
+    "name": "content-tags",
     "description": "A Strapi plugin that allows you to add custom tags to your content.",
     "kind": "plugin",
     "displayName": "Strapi Plugin Content Tags"
