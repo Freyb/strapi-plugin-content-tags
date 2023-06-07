@@ -10,11 +10,8 @@ const StyledStatus = styled(Status)`
 
 const addColumnToTableHook = ({ displayedHeaders, layout }) => {
   const pluginOptions = get(layout, `contentType.pluginOptions.${pluginId}`);
-  const tagsEnabled = !!pluginOptions;
 
-  if (!tagsEnabled) {
-    return { displayedHeaders, layout };
-  }
+  if (!pluginOptions) return { displayedHeaders, layout };
 
   return {
     displayedHeaders: [

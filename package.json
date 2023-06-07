@@ -1,10 +1,10 @@
 {
   "name": "strapi-plugin-content-tags",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "description": "A Strapi plugin that allows you to add custom tags to your content.",
   "strapi": {
     "name": "strapi-plugin-content-tags",
-    "description": "Description of Strapi Plugin Content Tags plugin",
+    "description": "A Strapi plugin that allows you to add custom tags to your content.",
     "kind": "plugin",
     "displayName": "Strapi Plugin Content Tags"
   },
@@ -12,6 +12,7 @@
     "@strapi/design-system": "^1.6.3",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
+    "lodash": "4.17.21",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
@@ -27,11 +28,13 @@
     "styled-components": "^5.3.6"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Freyb",
+    "email": "balazs.frey@gmail.com"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Freyb",
+      "email": "balazs.frey@gmail.com"
     }
   ],
   "engines": {
