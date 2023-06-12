@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-content-tags",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Strapi plugin that allows you to add custom tags to your content.",
   "strapi": {
     "name": "content-tags",
