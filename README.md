@@ -1,3 +1,6 @@
+# UNMAINTAINED
+Unfortunately, I'm no longer working on Strapi projects. Feel free to fork the project, or send PRs.
+
 # Strapi Plugin Content Tags
 
 A Strapi plugin that allows you to add custom tags to your content.
